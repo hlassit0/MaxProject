@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h1>{{ event.name }}</h1>
+  <p>{{ event.description }}</p>
+  <p><strong>Where:</strong> {{ event.city }}, {{ event.country }}</p>
+  <p><strong>When:</strong> {{ format_iso(event.start_at) }} to {{ format_iso(event.end_at) }}</p>
+  <p><strong>Tags:</strong> {{ event.tags | join(", ") }}</p>
+  <p><a href="{{ event.website_url }}" target="_blank" rel="noreferrer">Event website</a></p>
+</section>
+
+<div class="grid-two">
+  <section class="card">
+    <h2>Mark Interest / Attendance</h2>
+    {% if viewer %}
+      <form action="/events/{{ event.slug }}/attendance" method="post" class="stack-form">
+        <label>
+          State
+          <select name="state">
+            <option value="INTERESTED" {% if existing_attendance and existing_attendance.state == 'INTERESTED' %}selected{% endif %}>Interested</option>
+            <option value="ATTENDING" {% if existing_attendance and existing_attendance.state == 'ATTENDING' %}selected{% endif %}>Attending</option>
+          </select>
+        </label>
+        <label>
+          Visibility
+          <select name="visibility">
+            <option value="PUBLIC" {% if not existing_attendance or existing_attendance.visibility == 'PUBLIC' %}selected{% endif %}>Public</option>
+            <option value="VERIFIED_ONLY" {% if existing_attendance and existing_attendance.visibility == 'VERIFIED_ONLY' %}selected{% endif %}>Verified only</option>
+            <option value="PRIVATE" {% if existing_attendance and existing_attendance.visibility == 'PRIVATE' %}selected{% endif %}>Private</option>
+          </select>
+        </label>
+        <button type="submit" class="btn">Save attendance</button>
+      </form>
+      <p class="muted">Privacy rules are enforced server-side.</p>
+    {% else %}
+      <p>Login required to set attendance.</p>
+      <a href="/login?next=/events/{{ event.slug }}" class="btn">Login</a>
+    {% endif %}
+  </section>
+
+  <section class="card">
+    <h2>Attendees</h2>
+    <form method="get" action="/events/{{ event.slug }}" class="stack-form">
+      <label>Company <input name="company" placeholder="Stripe" value="{{ request.args.get('company', '') }}" /></label>
+      <label>Title <input name="title" placeholder="Partnerships" value="{{ request.args.get('title', '') }}" /></label>
+      <label>
+        State
+        <select name="state">
+          <option value="">Any state</option>
+          <option value="INTERESTED" {% if request.args.get('state') == 'INTERESTED' %}selected{% endif %}>Interested</option>
+          <option value="ATTENDING" {% if request.args.get('state') == 'ATTENDING' %}selected{% endif %}>Attending</option>
+        </select>
+      </label>
+      <div class="row-actions">
+        <button type="submit" class="btn">Apply</button>
+        <a class="btn btn-outline" href="/events/{{ event.slug }}">Reset</a>
+      </div>
+    </form>
+    <p class="muted">Visible attendees: {{ attendees["total_visible"] }} (your limit: {{ attendees["limit"] }})</p>
+    {% if attendees["items"] %}
+      <ul class="list-reset card-list compact">
+        {% for attendee in attendees["items"] %}
+        <li class="card-row">
+          <div>
+            <strong>{{ attendee.name }}</strong>
+            <p class="muted">{{ attendee.company }}{% if attendee.title %} · {{ attendee.title }}{% endif %}</p>
+            <p class="muted">{{ attendee.state }}</p>
+          </div>
+          <span class="badge">{{ attendee.visibility }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No attendees visible for your permissions.</p>
+      <p class="muted">Verified-only attendees require a verified domain or active PRO plan.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

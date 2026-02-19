@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section-head">
+  <h1>{% if mode == 'create' %}Create Event{% else %}Edit Event{% endif %}</h1>
+  <a href="/admin/events" class="btn btn-outline">Back</a>
+</section>
+
+<form method="post" class="stack-form card">
+  <label>Slug <input name="slug" value="{{ event.slug if event else '' }}" /></label>
+  <label>Name <input name="name" value="{{ event.name if event else '' }}" required /></label>
+  <label>Description <textarea name="description" rows="4">{{ event.description if event else '' }}</textarea></label>
+  <label>Website URL <input name="website_url" value="{{ event.website_url if event else '' }}" /></label>
+  <label>Start At <input name="start_at" value="{{ event.start_at if event else '' }}" placeholder="2026-04-12T09:00:00Z" /></label>
+  <label>End At <input name="end_at" value="{{ event.end_at if event else '' }}" placeholder="2026-04-14T17:00:00Z" /></label>
+  <label>City <input name="city" value="{{ event.city if event else '' }}" /></label>
+  <label>Country <input name="country" value="{{ event.country if event else '' }}" /></label>
+  <label>Tags (comma-separated) <input name="tags" value="{{ event.tags if event else '' }}" /></label>
+  <button type="submit" class="btn">Save</button>
+</form>
+{% endblock %}

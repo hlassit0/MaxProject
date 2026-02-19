@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section-head">
+  <h1>Admin Events</h1>
+  <a href="/admin/events/new" class="btn">Create Event</a>
+</section>
+
+{% if events %}
+  <ul class="list-reset card-list">
+    {% for event in events %}
+    <li class="card-row">
+      <div>
+        <strong class="row-title">{{ event.name }}</strong>
+        <p class="muted">{{ event.slug }} · {{ event.city }}, {{ event.country }}</p>
+      </div>
+      <div class="actions">
+        <a href="/admin/events/{{ event.slug }}/edit" class="btn btn-outline">Edit</a>
+        <form method="post" action="/admin/events/{{ event.slug }}/delete" class="inline-form">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No events available.</p>
+{% endif %}
+{% endblock %}

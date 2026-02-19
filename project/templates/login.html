@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card auth-card">
+  <h1>Login</h1>
+  <p class="muted">Use a seeded email with <code>AUTH_CREDENTIALS_SEED_PASSWORD</code> (default: <code>devpassword</code>).</p>
+  <form method="post" action="/login" class="stack-form">
+    <input type="hidden" name="next" value="{{ next_path }}" />
+    <label>
+      Email
+      <input name="email" type="email" required />
+    </label>
+    <label>
+      Password
+      <input name="password" type="password" required />
+    </label>
+    <button type="submit" class="btn">Login</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,108 @@
+{
+  "events": [
+    {
+      "slug": "money2020-usa-2026",
+      "name": "Money20/20 USA",
+      "description": "Large fintech conference for B2B payments, banking, and infrastructure leaders.",
+      "website_url": "https://money2020-usa-2026.example.com",
+      "start_at": "2026-04-12T09:00:00Z",
+      "end_at": "2026-04-14T17:00:00Z",
+      "city": "Las Vegas",
+      "country": "US",
+      "tags": ["payments", "banking", "b2b-fintech"]
+    },
+    {
+      "slug": "finovate-spring-2026",
+      "name": "FinovateSpring",
+      "description": "Demo-focused conference for fintech products and operators.",
+      "website_url": "https://finovate-spring-2026.example.com",
+      "start_at": "2026-05-06T09:00:00Z",
+      "end_at": "2026-05-08T17:00:00Z",
+      "city": "San Francisco",
+      "country": "US",
+      "tags": ["fintech", "demos", "b2b-fintech"]
+    },
+    {
+      "slug": "open-banking-expo-2026",
+      "name": "Open Banking Expo",
+      "description": "Conference focused on open banking infrastructure and API ecosystems.",
+      "website_url": "https://open-banking-expo-2026.example.com",
+      "start_at": "2026-06-10T09:00:00Z",
+      "end_at": "2026-06-11T17:00:00Z",
+      "city": "London",
+      "country": "UK",
+      "tags": ["open-banking", "api", "b2b-fintech"]
+    }
+  ],
+  "users": [
+    {
+      "id": "u-admin",
+      "email": "admin@local.dev",
+      "name": "Admin",
+      "role": "ADMIN",
+      "verified_email_domain": true,
+      "company": "Local Admin",
+      "title": "Administrator",
+      "plan": "PRO",
+      "subscription_status": "ACTIVE"
+    },
+    {
+      "id": "u-alice",
+      "email": "alice@stripe.com",
+      "name": "Alice Stripe",
+      "role": "USER",
+      "verified_email_domain": true,
+      "company": "Stripe",
+      "title": "Partnerships Lead",
+      "plan": "FREE",
+      "subscription_status": "CANCELED"
+    },
+    {
+      "id": "u-bob",
+      "email": "bob@gmail.com",
+      "name": "Bob Free",
+      "role": "USER",
+      "verified_email_domain": false,
+      "company": "Independent",
+      "title": "Consultant",
+      "plan": "FREE",
+      "subscription_status": "CANCELED"
+    },
+    {
+      "id": "u-pro",
+      "email": "pro@local.dev",
+      "name": "Pro User",
+      "role": "USER",
+      "verified_email_domain": false,
+      "company": "GrowthPay",
+      "title": "VP Partnerships",
+      "plan": "PRO",
+      "subscription_status": "ACTIVE"
+    }
+  ],
+  "attendances": [
+    {
+      "event_slug": "money2020-usa-2026",
+      "user_id": "u-alice",
+      "state": "ATTENDING",
+      "visibility": "VERIFIED_ONLY",
+      "updated_at": "2026-02-08T12:00:00Z"
+    },
+    {
+      "event_slug": "money2020-usa-2026",
+      "user_id": "u-bob",
+      "state": "INTERESTED",
+      "visibility": "PUBLIC",
+      "updated_at": "2026-02-08T11:00:00Z"
+    },
+    {
+      "event_slug": "money2020-usa-2026",
+      "user_id": "u-pro",
+      "state": "ATTENDING",
+      "visibility": "PRIVATE",
+      "updated_at": "2026-02-08T10:00:00Z"
+    }
+  ],
+  "side_events": [],
+  "meeting_requests": []
+}

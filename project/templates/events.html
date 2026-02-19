@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section-head">
+  <h1>Events</h1>
+</section>
+
+<form method="get" action="/events" class="filters card">
+  <label>
+    Query
+    <input name="query" value="{{ query }}" placeholder="payments, lending, banking" />
+  </label>
+  <label>
+    City
+    <input name="city" value="{{ city }}" placeholder="London" />
+  </label>
+  <button type="submit" class="btn">Search</button>
+  <a href="/events" class="btn btn-outline">Reset</a>
+</form>
+
+{% if events %}
+  <ul class="list-reset card-list">
+    {% for event in events %}
+    <li class="card-row">
+      <div>
+        <a href="/events/{{ event.slug }}" class="row-title">{{ event.name }}</a>
+        <p class="muted">{{ event.city }}, {{ event.country }}</p>
+      </div>
+      <span class="muted">{{ format_iso(event.start_at) }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No events found.</p>
+{% endif %}
+{% endblock %}

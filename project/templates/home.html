@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero card">
+  <h1>B2B Fintech Conference Intelligence</h1>
+  <p>Local frontend + backend with attendee trust controls, private visibility, and organizer/admin coordination rails.</p>
+  <a href="/events" class="btn">Browse Conferences</a>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>Upcoming Events</h2>
+  </div>
+  {% if events %}
+    <ul class="list-reset card-list">
+      {% for event in events %}
+      <li class="card-row">
+        <div>
+          <a href="/events/{{ event.slug }}" class="row-title">{{ event.name }}</a>
+          <p class="muted">{{ event.city }}, {{ event.country }}</p>
+        </div>
+        <span class="muted">{{ format_iso(event.start_at) }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No events available.</p>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Fintech Conference Intelligence</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="/">FinConf Intel</a>
+        <nav class="navlinks">
+          <a href="/events">Events</a>
+          {% if viewer %}
+            <a href="/me">Me</a>
+            {% if viewer.role == 'ADMIN' %}<a href="/admin/events">Admin</a>{% endif %}
+            <form action="/logout" method="post" class="inline-form">
+              <button type="submit" class="btn btn-outline">Logout</button>
+            </form>
+          {% else %}
+            <a href="/login">Login</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+    <main class="container page">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="flashes">
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
